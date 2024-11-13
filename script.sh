@@ -19,6 +19,15 @@ fi
 #Creating all the directories necessary for analysis
 
 
+#Function for running fastqc and multiqc
+fastqc_multiqc_run () {
+    local data="$1"
+    local base="$2"
+
+    fastqc "${data}/*.fastq.gz" -o "${data}/fastqc_dir"
+    multiqc "${data}/fastqc_dir/*fastqc*"
+}
+
 #Create working fastqc if not found
 if [ ! -d "${data}/fastqc_dir" ]
 then
