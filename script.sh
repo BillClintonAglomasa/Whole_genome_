@@ -14,6 +14,7 @@ then
     exit 1
 else
     echo "The path to your data directory is corrrect"
+    echo "I will proceed with the analysis"
 fi
 
 #Creating all the directories necessary for analysis
@@ -27,6 +28,16 @@ fastqc_multiqc_run () {
     fastqc "${data}/*.fastq.gz" -o "${data}/fastqc_dir"
     multiqc "${data}/fastqc_dir/*fastqc*"
 }
+
+fastp_run () {
+    local data="$1"
+    local base="$2"
+
+    fastp -i "${base}"_R1_001.fastq.gz -I "${base}"_R2_001.fastq.gz -l 30 --cut_front --cut_tail -W 4 -M 20 -o \
+	  "${data}/fastp_dir/${base}"_1.trimmed.fastq.gz -O "${data}/fastp_dir/${base}"_2.trimmed.fastq.gz --html \
+	  "${data}/fastp_dir/${base}".html --json "${data}/fastp_dir/${base}".json
+}
+    
 
 #Create working fastqc if not found
 if [ ! -d "${data}/fastqc_dir" ]
@@ -43,6 +54,7 @@ do
     echo
     fastqc $file -o "${data}/fastqc_dir"
 done
+
 
 #Generate Multiqc report
 #multiqc "${data}/fastqc_dir"/*fastqc*
