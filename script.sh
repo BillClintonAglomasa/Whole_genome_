@@ -37,7 +37,13 @@ fastp_run () {
 	  "${data}/fastp_dir/${base}"_1.trimmed.fastq.gz -O "${data}/fastp_dir/${base}"_2.trimmed.fastq.gz --html \
 	  "${data}/fastp_dir/${base}".html --json "${data}/fastp_dir/${base}".json
 }
-    
+
+quast_run () {
+    local data="$1"
+    local base="$2"
+
+    quast.py "${data}/${base}/contigs.fasta" -o "${data}/quast_dir/${base}"
+}
 
 #Create working fastqc if not found
 if [ ! -d "${data}/fastqc_dir" ]
