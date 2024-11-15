@@ -29,6 +29,7 @@ fastqc_multiqc_run () {
     multiqc "${data}/fastqc_dir/*fastqc*"
 }
 
+#Function for running fastp for trimming reads
 fastp_run () {
     local data="$1"
     local base="$2"
@@ -38,6 +39,7 @@ fastp_run () {
 	  "${data}/fastp_dir/${base}".html --json "${data}/fastp_dir/${base}".json
 }
 
+#Function for checking the quality of assembled reads
 quast_run () {
     local data="$1"
     local base="$2"
