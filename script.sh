@@ -39,6 +39,14 @@ fastp_run () {
 	  "${data}/fastp_dir/${base}".html --json "${data}/fastp_dir/${base}".json
 }
 
+#Function for running spades to assembly reads
+spades_run () {
+    local data="$1"
+    local base="$2"
+
+    spades.py -1 "${data}/${base}"_1.trimmed.fastq.gz -2 "${data}/${base}"_2.trimmed.fastq.gz --careful -t 50 -o "${data}/spades_dir/${base}"
+}
+
 #Function for checking the quality of assembled reads
 quast_run () {
     local data="$1"
