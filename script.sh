@@ -55,6 +55,14 @@ quast_run () {
     quast.py "${data}/${base}/contigs.fasta" -o "${data}/quast_dir/${base}"
 }
 
+prokka_run () {
+    local data="$1"
+    local base="$2"
+
+    prokka --kingdom Bacteria --cpus 50 --addgenes --prefix "${base}" --force "${data}/${base}/contigs.fasta" --outdir "${data}/prokka_dir/${base}"
+}
+
+    
 #Create working fastqc if not found
 if [ ! -d "${data}/fastqc_dir" ]
 then
