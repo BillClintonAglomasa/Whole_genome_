@@ -66,14 +66,22 @@ abricate_run () {
     local data="$1"
     local base="$2"
 
-    abricate "${data}/spades_dir/${base}/contigs.fasta" --db card --csv > "${data}/abricate_dir/card/${base}.csv"
-    abricate "${data}/spades_dir/${base}/contigs.fasta" --db plasmidfinder --csv > "${data}/abricate_dir/plasmidfinder/${base}.csv"
-    abricate "${data}/spades_dir/${base}/contigs.fasta" --db argannot --csv > "${data}/abricate_dir/argannot/${base}.csv"
-    abricate "${data}/spades_dir/${base}/contigs.fasta" --db resfinder --csv > "${data}/abricate_dir/resfinder/${base}.csv"
-    abricate "${data}/spades_dir/${base}/contigs.fasta" --db vfdb --csv > "${data}/abricate_dir/vfdb/${base}.csv"    
+    abricate "${data}/${base}/contigs.fasta" --db card --csv > "${data}/abricate_dir/card/${base}.csv"
+    abricate "${data}/${base}/contigs.fasta" --db plasmidfinder --csv > "${data}/abricate_dir/plasmidfinder/${base}.csv"
+    abricate "${data}/${base}/contigs.fasta" --db argannot --csv > "${data}/abricate_dir/argannot/${base}.csv"
+    abricate "${data}/${base}/contigs.fasta" --db resfinder --csv > "${data}/abricate_dir/resfinder/${base}.csv"
+    abricate "${data}/${base}/contigs.fasta" --db vfdb --csv > "${data}/abricate_dir/vfdb/${base}.csv"    
 }
 
-#Create working fastqc if not found
+
+mlst_run () {
+    local data="$1"
+    local base="$2"
+
+    mlst --csv "${data}/${base}/contigs.fasta" > "${data}/mlst_dir/${base}.csv"
+}
+
+    #Create working fastqc if not found
 if [ ! -d "${data}/fastqc_dir" ]
 then
     echo "fastqc_dir not found. Creating it"
